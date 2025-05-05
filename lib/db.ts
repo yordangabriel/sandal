@@ -1,6 +1,8 @@
 import Database from "better-sqlite3";
 
 interface Order {
+  created_at: string | number | Date;
+  id: string | null;
   name: string;
   email: string;
   phone: string;
