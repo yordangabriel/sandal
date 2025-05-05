@@ -48,11 +48,11 @@ export function middleware(request: NextRequest) {
     // Clean up old entries periodically (optional)
     if (Math.random() < 0.1) {
       // 10% chance to clean up
-      for (const [key, value] of rateLimits) {
+      rateLimits.forEach((value, key) => {
         if (now > value.resetAt + windowMs) {
           rateLimits.delete(key);
         }
-      }
+      });
     }
   }
 
