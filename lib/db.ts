@@ -1,4 +1,5 @@
 import Database from "better-sqlite3";
+import type { Database as DatabaseType } from "better-sqlite3";
 
 interface Order {
   created_at: string | number | Date;
@@ -13,7 +14,7 @@ interface Order {
   product_price: number;
 }
 
-let db: Database | null = null;
+let db: DatabaseType | null = null;
 
 function initializeDb() {
   if (!db) {
@@ -63,5 +64,6 @@ export function saveOrder(orderData: Order) {
 
 export function getOrders(): Order[] {
   const db = initializeDb();
-  return db.prepare("SELECT * FROM orders ORDER BY created_at DESC").all();
+  const result = db.prepare("SELECT * FROM orders ORDER BY created_at DESC").all();
+  return result as Order[]; // Type assertion
 }
